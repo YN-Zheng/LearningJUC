@@ -7,7 +7,7 @@ import java.util.Date;
  * 十个线程分别打印出生日日期
  */
 public class ThreadLocalNormalUsage01 {
-    public String date(int seconds){
+    public String date(int seconds) {
         // 参数单位是毫秒,从1970.1.1 00:00:00 GMT计时
         Date date = new Date(1000L * seconds);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -22,7 +22,7 @@ public class ThreadLocalNormalUsage01 {
                 @Override
                 public void run() {
                     String date = new ThreadLocalNormalUsage01().date(finalI);
-                    System.out.println(Thread.currentThread().getName()+":"+date);
+                    System.out.println(Thread.currentThread().getName() + ":" + date);
                 }
             }).start();
         }

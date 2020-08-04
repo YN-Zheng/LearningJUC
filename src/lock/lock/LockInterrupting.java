@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 3. unlock 解锁. 一定要放在finally中
  * 一种可中断锁的体现
  */
-public class LockInterrupting implements Runnable{
+public class LockInterrupting implements Runnable {
     private Lock lock = new ReentrantLock();
 
     public static void main(String[] args) throws InterruptedException {
@@ -25,21 +25,20 @@ public class LockInterrupting implements Runnable{
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName()+"尝试获取锁");
-        try{
+        System.out.println(Thread.currentThread().getName() + "尝试获取锁");
+        try {
             lock.lockInterruptibly();
-            try{
-                System.out.println(Thread.currentThread().getName()+"获取到了锁");
+            try {
+                System.out.println(Thread.currentThread().getName() + "获取到了锁");
                 Thread.sleep(5000);
-            }catch (InterruptedException e){
-                System.out.println(Thread.currentThread().getName()+"睡眠期间被中断了");
-            }
-            finally {
-                System.out.println(Thread.currentThread().getName()+"释放了锁");
+            } catch (InterruptedException e) {
+                System.out.println(Thread.currentThread().getName() + "睡眠期间被中断了");
+            } finally {
+                System.out.println(Thread.currentThread().getName() + "释放了锁");
                 lock.unlock();
             }
         } catch (InterruptedException e) {
-            System.out.println(Thread.currentThread().getName()+"获得锁期间被中断了");
+            System.out.println(Thread.currentThread().getName() + "获得锁期间被中断了");
         }
     }
 }

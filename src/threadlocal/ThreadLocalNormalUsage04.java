@@ -15,7 +15,7 @@ public class ThreadLocalNormalUsage04 {
     public static ExecutorService threadPool = Executors.newFixedThreadPool(10);
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    public String date(int seconds){
+    public String date(int seconds) {
         // 参数单位是毫秒,从1970.1.1 00:00:00 GMT计时
         Date date = new Date(1000L * seconds);
         String s;
@@ -34,7 +34,7 @@ public class ThreadLocalNormalUsage04 {
                 @Override
                 public void run() {
                     String date = new ThreadLocalNormalUsage04().date(finalI);
-                    System.out.println(Thread.currentThread().getName()+":"+date);
+                    System.out.println(Thread.currentThread().getName() + ":" + date);
                 }
             }));
         }

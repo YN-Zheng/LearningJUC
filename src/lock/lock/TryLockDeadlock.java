@@ -17,8 +17,8 @@ public class TryLockDeadlock implements Runnable {
     public static void main(String[] args) {
         TryLockDeadlock r1 = new TryLockDeadlock();
         TryLockDeadlock r2 = new TryLockDeadlock();
-        r1.flag=1;
-        r2.flag=0;
+        r1.flag = 1;
+        r2.flag = 0;
         new Thread(r1).start();
         new Thread(r2).start();
     }
@@ -53,7 +53,7 @@ public class TryLockDeadlock implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            } else{
+            } else {
                 try {
                     if (lock2.tryLock(800, TimeUnit.MILLISECONDS)) {
                         try {

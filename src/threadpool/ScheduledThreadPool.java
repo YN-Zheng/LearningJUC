@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ScheduledThreadPool {
     public static void main(String[] args) {
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
-        scheduledExecutorService.scheduleAtFixedRate(new Task(),1,1, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new Task(), 1, 1, TimeUnit.SECONDS);
 
     }
 }

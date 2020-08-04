@@ -7,14 +7,15 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class RecursionDemo {
     private static ReentrantLock lock = new ReentrantLock();
-    private static void accessResource(){
+
+    private static void accessResource() {
         lock.lock();
-        try{
-            System.out.println("已经对资源进行了处理, lock.getHoldCount= "+lock.getHoldCount());
-            if(lock.getHoldCount()<5){
+        try {
+            System.out.println("已经对资源进行了处理, lock.getHoldCount= " + lock.getHoldCount());
+            if (lock.getHoldCount() < 5) {
                 accessResource();
             }
-        }finally {
+        } finally {
             lock.unlock();
         }
     }

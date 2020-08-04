@@ -12,10 +12,10 @@ public class MustUnlock {
 
     public static void main(String[] args) {
         lock.lock();
-        try{
+        try {
             //获取本锁保护的资源
-            System.out.println(Thread.currentThread().getName()+"开始执行任务");
-        }finally {
+            System.out.println(Thread.currentThread().getName() + "开始执行任务");
+        } finally {
             lock.unlock();
         }
     }

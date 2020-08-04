@@ -19,7 +19,7 @@ public class LockDemo {
             @Override
             public void run() {
                 while (true) {
-                       try {
+                    try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

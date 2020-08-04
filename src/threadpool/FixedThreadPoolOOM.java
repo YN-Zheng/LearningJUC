@@ -16,7 +16,7 @@ public class FixedThreadPoolOOM {
     }
 }
 
-class SubThread implements Runnable{
+class SubThread implements Runnable {
 
     @Override
     public void run() {

@@ -18,16 +18,16 @@ public class NonfairBargeDemo {
     private static ReentrantReadWriteLock.WriteLock writeLock = reentrantReadWriteLock.writeLock();
 
     public static void main(String[] args) {
-        new Thread(()->write(),"Thread0").start();
-        new Thread(()->read(),"Thread1").start();
-        new Thread(()->read(),"Thread2").start();
-        new Thread(()->write(),"Thread3").start();
+        new Thread(() -> write(), "Thread0").start();
+        new Thread(() -> read(), "Thread1").start();
+        new Thread(() -> read(), "Thread2").start();
+        new Thread(() -> write(), "Thread3").start();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Thread thread[] = new Thread[1000];
-                for (int i = 0; i < 1000 ;i++){
-                    thread[i] = new Thread(()->read(),"子线程船舰的Thread"+i);
+                for (int i = 0; i < 1000; i++) {
+                    thread[i] = new Thread(() -> read(), "子线程船舰的Thread" + i);
                 }
                 for (int i = 0; i < 1000; i++) {
                     thread[i].start();
@@ -37,28 +37,29 @@ public class NonfairBargeDemo {
     }
 
     private static void read() {
-        System.out.println(Thread.currentThread().getName()+"开始尝试获取读锁");
+        System.out.println(Thread.currentThread().getName() + "开始尝试获取读锁");
         readLock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"得到读锁，正在读取");
+        try {
+            System.out.println(Thread.currentThread().getName() + "得到读锁，正在读取");
             Thread.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.out.println(Thread.currentThread().getName()+"释放读锁");
+            System.out.println(Thread.currentThread().getName() + "释放读锁");
             readLock.unlock();
         }
     }
+
     private static void write() {
-        System.out.println(Thread.currentThread().getName()+"开始尝试获取写锁");
+        System.out.println(Thread.currentThread().getName() + "开始尝试获取写锁");
         writeLock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"得到写锁，正在写取");
+        try {
+            System.out.println(Thread.currentThread().getName() + "得到写锁，正在写取");
             Thread.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.out.println(Thread.currentThread().getName()+"释放写锁");
+            System.out.println(Thread.currentThread().getName() + "释放写锁");
             writeLock.unlock();
         }
     }

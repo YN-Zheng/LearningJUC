@@ -12,13 +12,13 @@ public class CinemaReadWriteQueue {
     private static ReentrantReadWriteLock.WriteLock writeLock = reentrantReadWriteLock.writeLock();
 
     public static void main(String[] args) {
-        new Thread(CinemaReadWriteQueue::read,"Thread1").start();
-        new Thread(()->write(),"Thread2").start();
-        new Thread(()->write(),"Thread3").start();
-        new Thread(()->read(),"Thread4").start();
-        new Thread(()->read(),"Thread5").start();
-        new Thread(()->write(),"Thread6").start();
-        new Thread(()->write(),"Thread7").start();
+        new Thread(CinemaReadWriteQueue::read, "Thread1").start();
+        new Thread(() -> write(), "Thread2").start();
+        new Thread(() -> write(), "Thread3").start();
+        new Thread(() -> read(), "Thread4").start();
+        new Thread(() -> read(), "Thread5").start();
+        new Thread(() -> write(), "Thread6").start();
+        new Thread(() -> write(), "Thread7").start();
     }
 
     private static void read() {

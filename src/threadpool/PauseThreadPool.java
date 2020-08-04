@@ -53,19 +53,19 @@ public class PauseThreadPool extends ThreadPoolExecutor {
         }
     }
 
-    private void resume(){
+    private void resume() {
         lock.lock();
-        try{
-            isPaused=false;
+        try {
+            isPaused = false;
             unpaused.signalAll();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
         PauseThreadPool pauseThreadPool = new PauseThreadPool(10, 20, 10L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
-        Runnable runnable = new Runnable(){
+        Runnable runnable = new Runnable() {
 
             @Override
             public void run() {

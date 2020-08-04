@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 public class ThreadLocalNormalUsage05 {
     public static ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
-    public String date(int seconds){
+    public String date(int seconds) {
         // 参数单位是毫秒,从1970.1.1 00:00:00 GMT计时
         Date date = new Date(1000L * seconds);
         SimpleDateFormat simpleDateFormat = ThreadSafeFormatter.dateFormatThreadLocal.get();
@@ -28,7 +28,7 @@ public class ThreadLocalNormalUsage05 {
                 @Override
                 public void run() {
                     String date = new ThreadLocalNormalUsage05().date(finalI);
-                    System.out.println(Thread.currentThread().getName()+":"+date);
+                    System.out.println(Thread.currentThread().getName() + ":" + date);
                 }
             }));
         }
@@ -38,8 +38,8 @@ public class ThreadLocalNormalUsage05 {
 
 }
 
-class ThreadSafeFormatter{
-    public static ThreadLocal<SimpleDateFormat> dateFormatThreadLocal = new ThreadLocal<>(){
+class ThreadSafeFormatter {
+    public static ThreadLocal<SimpleDateFormat> dateFormatThreadLocal = new ThreadLocal<>() {
         @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -47,6 +47,6 @@ class ThreadSafeFormatter{
     };
 
     //lambda表达式写法
-    public static ThreadLocal<SimpleDateFormat> dateFormatThreadLocal2 = ThreadLocal.withInitial(()->new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
+    public static ThreadLocal<SimpleDateFormat> dateFormatThreadLocal2 = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
 
 }

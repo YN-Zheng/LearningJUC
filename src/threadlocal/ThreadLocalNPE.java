@@ -6,12 +6,13 @@ package threadlocal;
 public class ThreadLocalNPE {
     ThreadLocal<Long> longThreadLocal = new ThreadLocal<>();
 
-    public void set(){
+    public void set() {
         longThreadLocal.set(Thread.currentThread().getId());
     }
+
     // 包装类！！！
     // null的Long转为long会报错
-    public long get(){
+    public long get() {
         return longThreadLocal.get();
     }
 

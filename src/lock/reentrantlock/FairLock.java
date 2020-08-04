@@ -16,7 +16,7 @@ public class FairLock {
         for (int i = 0; i < 10; i++) {
             thread[i] = new Thread(new Job(printQueue));
         }
-        for (int i =  0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             thread[i].start();
             Thread.sleep(100);
         }
