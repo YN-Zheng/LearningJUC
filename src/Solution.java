@@ -1,17 +1,48 @@
+import java.util.HashMap;
+
 class Solution {
-    public String longestCommonPrefix(String[] strs) {
-        int minSize = Integer.MAX_VALUE;
-        int n = strs.length;
-        for (int i = 0; i < strs.length; i++) {
-            minSize = Math.min(minSize, strs[i].length());
-        }
-        for (int i = 0; i < minSize; i++) {
-            for (int j = 0; j < n - 1; j++) {
-                if (strs[j].charAt(i) != strs[j].charAt(i + 1)) {
-                    return strs[j].substring(0, i);
-                }
+
+    /*
+        Symbol       Value
+        I             1
+        V             5
+        X             10
+        L             50
+        C             100
+        D             500
+        M             1000
+     */
+    HashMap<Character, Integer> map = new HashMap<>();
+
+    {
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+    }
+
+    public int romanToInt(String s) {
+        int ret = 0;
+        int i = 0;
+        int count = 0;
+        while (i < s.length()) {
+            char temp = s.charAt(i);
+            while (++i < s.length() && map.get(s.charAt(i)).equals(map.get(temp))) {
+                count++;
+            }
+            if (i >= s.length()) {
+                return ret += count * map.get(temp);
+            } else if (count == 1 && map.get(temp) > map.get(s.charAt(i))) {
+                ret += map.get(temp) - map.get(s.charAt(i));
+                i++;
+            } else {
+                ret += map.get(temp) * count;
             }
         }
-        return strs[0].substring(0, minSize);
+        return ret;
     }
+
 }

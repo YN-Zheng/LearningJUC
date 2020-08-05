@@ -2,8 +2,6 @@ package threadpool;
 
 import java.util.concurrent.*;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-
 /**
  * 手动设置
  * 线程池里的线程数量设置为多少比较合适？
