@@ -97,3 +97,142 @@ boolean terminated = pool.awaitTermination(20L,TimeUnits.SECONDS);//等待,直�
 
 ## 锁
 
+### 锁的分类
+
+| 分类依据                     |                    |                      |
+| :--------------------------- | ------------------ | -------------------- |
+| 是否锁住同步资源             | 悲观锁（互斥同步） | 乐观锁（非互斥同步） |
+| 能否共享同一把锁             | 共享锁             | 独占锁               |
+| 多线程竞争时，是否排队       | 排队：公平锁       | 先尝试插队：非公平锁 |
+| 同一线程能否重复获取同一把锁 | 可重入锁           | 不可重入锁           |
+| 是否可中断                   | 可中断锁           | 非可中断锁           |
+| 等锁的过程                   | 自旋锁             | 阻塞锁               |
+
+#### 乐观
+
+- 实现：CAS算法
+
+- 适用场景
+  - **临界区小**，持锁时间短（时间越长，相比悲观锁的开销就越大）
+  - **多读少写**
+
+- 典型例子
+  - 原子类
+  - 并发容器
+  - synchronized锁优化后的（轻量级锁
+  - GIT
+  - 数据库（version控制数据库？？？TODO）
+
+#### 可重入锁
+
+源码分析
+
+- 获取锁时先判断。若当前线程就是已经占有锁的线程，则status+1
+- 释放锁时先判断是否当前线程持有锁，然后判断status。若status=0，才真正释放锁。
+
+
+
+#### 非公平锁
+
+- 插队以提高效率：吞吐量更大；**线程饥饿**问题
+
+- 避免唤醒带来的**空档期**
+
+- **tryLock**不遵守公平，自带插队属性
+
+
+
+#### 共享锁和排他锁
+
+- 解决痛点：多读场景没有线程安全问题
+
+- 排他锁：独占锁、独享锁
+- 共享锁：又称为读锁。可以查看但无法修改和删除数据
+
+- 插队？
+  - 公平锁：不允许插队
+  - 非公平锁
+    - 写锁可以随时插队 
+    - 读锁仅在：等待队列头节点不是想获取写锁的时候，可以插队
+
+```java
+// JUC 中的读写锁
+ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+ReentrantReadWriteLock.ReadLock readLock = reentrantReadWriteLock.readLock();
+ReentrantReadWriteLock.WriteLock writeLock = reentrantReadWriteLock.writeLock();
+
+
+// 升降级策略：只能降级，不能升级
+writeLock.lock();
+try {
+    readLock.lock();  //"在不释放写锁的情况下，直接获取读锁，成功降级");
+} catch (InterruptedException e) {
+    e.printStackTrace();
+} finally {
+    readLock.unlock();
+    writeLock.unlock();
+}
+```
+
+
+
+
+
+
+
+### synchronized关键字
+
+缺点
+
+1. 试图获得锁不能设定超时
+2. 不能中断一个正在试图获得锁的线程
+3. 不够灵活（相比：读写锁），加锁和释放锁的时机单一
+
+
+
+### Lock接口
+
+特点
+
+- 不会像synchronized一样异常时释放锁（最佳实践：finally中释放锁）
+
+- **可见性保证**：和synchronized有同样的内存语意。下一个线程加锁后可以看见所有前一个线程解锁前发生的所有操作
+
+方法
+
+```java
+lock();
+unlock(); //解锁
+tryLock() //尝试获取锁, 若获取失败则立即返回
+tryLock(long time, TimeUnit unit) //尝试获取锁, 一段时间后超时就放弃
+lockInterruptibly() // 相当于无限时间的tryLock(long time, TimeUnit unit). 等待过程中,可以被中断
+```
+
+
+
+### JVM对锁的优化 [TODO]
+
+#### synchronized原理
+
+##### 偏向锁
+
+##### 轻量锁
+
+##### 重量锁
+
+#### 锁消除
+
+#### 锁粗化
+
+
+
+
+
+### 优化策略
+
+1. 缩小同步代码块
+2. 尽量不要锁住方法
+3. 减少锁的次数
+4. 避免人为制造“热点”
+5. 锁中尽量不要再包含锁
+6. 选择合适的类型或合适的工具类
