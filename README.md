@@ -228,6 +228,8 @@ lockInterruptibly() // 相当于无限时间的tryLock(long time, TimeUnit unit)
 
 
 
+
+
 ### 优化策略
 
 1. 缩小同步代码块
@@ -236,3 +238,25 @@ lockInterruptibly() // 相当于无限时间的tryLock(long time, TimeUnit unit)
 4. 避免人为制造“热点”
 5. 锁中尽量不要再包含锁
 6. 选择合适的类型或合适的工具类
+
+
+
+
+
+ 
+
+[CH10：控制并发流程]:(./flowcontrol/note.md)
+
+
+
+[CH11：AQS]: (./aqs/note.md)
+
+
+
+
+
+
+
+
+
+
