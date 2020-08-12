@@ -1,6 +1,7 @@
 package collections.concurrenthashmap;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 /**
  * putVal流程
@@ -18,5 +19,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * 2. 超过8的概率很小
  */
 public class ConcurrentHashMapDemo {
-    ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+
+    public static void main(String[] args) {
+        Hashtable<String, Integer> table = new Hashtable<>();
+        HashMap<String, Integer> map2 = new HashMap<>();
+        map2.put(null, 2);
+        System.out.println(map2.get(null));
+    }
 }

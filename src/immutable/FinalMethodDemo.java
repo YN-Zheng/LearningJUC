@@ -4,7 +4,7 @@ package immutable;
  * final的方法
  */
 public class FinalMethodDemo {
-    // 不能重写static方法
+    // 不能修饰static方法
     public static void sleep() {
 
     }
@@ -26,8 +26,6 @@ class SubClass extends FinalMethodDemo {
     public static void sleep() {
 
     }
-//    public void eat(){
-//    }
 
     @Override
     public void drink() {
